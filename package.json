@@ -9,6 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bytemd/plugin-breaks": "^1.10.13",
+    "@bytemd/plugin-footnotes": "^1.10.13",
+    "@bytemd/plugin-frontmatter": "^1.10.13",
+    "@bytemd/plugin-gemoji": "^1.10.13",
+    "@bytemd/plugin-gfm": "^1.10.13",
+    "@bytemd/plugin-highlight": "^1.10.13",
+    "@bytemd/plugin-math": "^1.10.13",
+    "@bytemd/plugin-medium-zoom": "^1.10.13",
+    "@bytemd/plugin-mermaid": "^1.10.13",
+    "@bytemd/react": "^1.10.13",
+    "github-markdown-css": "^5.1.0",
+    "highlight.js": "^11.3.1",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2"
