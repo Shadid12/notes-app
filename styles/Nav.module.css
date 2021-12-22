@@ -41,6 +41,7 @@
   height: 40px;
   border-radius: 50%;
   flex: 40px 0;
+  border: none;
   margin-right: 20px;
 }
 

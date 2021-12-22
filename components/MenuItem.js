@@ -1,6 +1,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import styles from "../styles/Nav.module.css";
+import Image from 'next/image'
 
 const variants = {
   open: {
@@ -23,6 +24,22 @@ const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
 
 export const MenuItem = ({ i }) => {
   const style = { border: `2px solid ${colors[i]}` };
+  let itemDetails = {}
+  switch (i) { 
+    case 0:
+      itemDetails = { 
+        title: "New",
+        icon: <Image src="/draft.png" alt="me" width="64" height="64" />
+      }
+      break;
+    case 1:
+      itemDetails = { 
+        title: "Share",
+        icon: <Image src="/share.png" alt="me" width="64" height="64" />
+      }
+      break;
+
+  }
   return (
     <motion.li
       variants={variants}
@@ -32,8 +49,12 @@ export const MenuItem = ({ i }) => {
         () => console.log(`Clicked ${i}`)
       }
     >
-      <div className={styles.iconPlaceholder} style={style} />
-      <div className={styles.textPlaceholder} style={style} />
+      <div className={styles.iconPlaceholder} >
+        {itemDetails.icon}
+      </div>
+      <div className={styles.textPlaceholder} >
+        {itemDetails.title}
+      </div>
     </motion.li>
   );
 };
