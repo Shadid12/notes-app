@@ -1,7 +1,4 @@
 import '../styles/globals.css'
-// import 'highlight.js/styles/default.css';
-
-
 import 'github-markdown-css'
 import 'highlight.js/styles/vs.css'
 import 'katex/dist/katex.css'
