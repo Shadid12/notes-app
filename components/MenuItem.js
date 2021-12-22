@@ -28,6 +28,9 @@ export const MenuItem = ({ i }) => {
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
+      onClick={
+        () => console.log(`Clicked ${i}`)
+      }
     >
       <div className={styles.iconPlaceholder} style={style} />
       <div className={styles.textPlaceholder} style={style} />
