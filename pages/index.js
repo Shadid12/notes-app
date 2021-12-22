@@ -10,6 +10,7 @@ import mediumZoom from '@bytemd/plugin-medium-zoom'
 import mermaid from '@bytemd/plugin-mermaid'
 import gemoji from '@bytemd/plugin-gemoji'
 import styles from '../styles/Home.module.css'
+import SideMenu from '../components/SideMenu'
 
 const plugins = [
   gfm(),
@@ -27,6 +28,8 @@ export default function Home() {
   const [value, setValue] = useState('')
 
   return (
+    <>
+    <SideMenu />
     <div className={styles.container}>
       <Editor
         value={value}
@@ -36,5 +39,6 @@ export default function Home() {
         }}
       />
     </div>
+    </>
   ) 
 }

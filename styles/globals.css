@@ -2,10 +2,3 @@
 .bytemd {
   height: calc(100vh - 50px) !important;
 }
-
-/* .markdown-body blockquote {
-  padding: 0 1em;
-  color: #6a737d;
-  border-left: 0.25em solid #dfe2e5;
-  margin: 0;
-} */
