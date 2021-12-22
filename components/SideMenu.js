@@ -41,7 +41,7 @@ export default function SideMenu() {
       ref={containerRef}
       className={styles.nav}
     >
-      <motion.div className="background" variants={sidebar} />
+      <motion.div className={styles.background} variants={sidebar} />
       <Navigation />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
