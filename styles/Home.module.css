@@ -9,3 +9,10 @@
     margin-left: 100px;
   }
 }
+
+@media screen and (max-width: 530px) {
+  .container {
+    margin-left: 0px;
+    max-width: 100vw;
+  }
+}
