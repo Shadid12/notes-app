@@ -30,14 +30,19 @@ export default function Home() {
   return (
     <>
     <SideMenu />
-    <div className={styles.container}>
-      <Editor
-        value={value}
-        plugins={plugins}
-        onChange={(v) => {
-          setValue(v)
-        }}
-      />
+    <div className={styles.mainWrapper}>
+      <div className={styles.sideItems}>
+        SIde Items
+      </div>
+      <div className={styles.container}>
+        <Editor
+          value={value}
+          plugins={plugins}
+          onChange={(v) => {
+            setValue(v)
+          }}
+        />
+      </div>
     </div>
     </>
   ) 

@@ -1,3 +1,13 @@
+.mainWrapper {
+  
+}
+
+.sideItems {
+  display: block;
+  position: absolute;
+  top: 100px;
+}
+
 .container {  
   margin-left: 270px;
   max-width: 70vw;
