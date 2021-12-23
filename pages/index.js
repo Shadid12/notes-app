@@ -11,6 +11,7 @@ import mermaid from '@bytemd/plugin-mermaid'
 import gemoji from '@bytemd/plugin-gemoji'
 import styles from '../styles/Home.module.css'
 import SideMenu from '../components/SideMenu'
+import { SideTree } from '../components/SideTree'
 
 const plugins = [
   gfm(),
@@ -32,7 +33,7 @@ export default function Home() {
     <SideMenu />
     <div className={styles.mainWrapper}>
       <div className={styles.sideItems}>
-        SIde Items
+        <SideTree />
       </div>
       <div className={styles.container}>
         <Editor
