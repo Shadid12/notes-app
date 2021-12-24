@@ -14,12 +14,13 @@ export const findIndex = (
   const bottom = top + height;
 
   // If moving down
-  if (yOffset > 0) {
+  console.log(yOffset);
+  if (yOffset > 170) {
     const nextItem = positions[i + 1];
     if (nextItem === undefined) return i;
 
     const swapOffset =
-      distance(bottom, nextItem.top + nextItem.height / 2) + buffer;
+      distance(bottom, nextItem.top + nextItem.height / 6 ) + buffer;
     if (yOffset > swapOffset) target = i + 1;
 
     // If moving up
@@ -29,7 +30,7 @@ export const findIndex = (
 
     const prevBottom = prevItem.top + prevItem.height;
     const swapOffset = distance(top, prevBottom - prevItem.height / 2) + buffer;
-    if (yOffset < -swapOffset) target = i - 1;
+    if ((yOffset - 300) < -swapOffset) target = i - 1;
   }
 
   return clamp(0, positions.length, target);

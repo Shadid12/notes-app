@@ -23,7 +23,7 @@ export function arrayMoveImmutable(array, fromIndex, toIndex) {
 
 
 
-const initialColors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF"]
+const initialColors = ["#fbf8cc", "#ffcfd2", "#cfbaf0", "#bbdefb", "#a3c4f3", "#98f5e1"]
 // Spring configs
 const onTop = { zIndex: 1 };
 const flat = {
@@ -31,7 +31,7 @@ const flat = {
   transition: { delay: 0.3 }
 };
 
-export function  SideTree(params) {
+export function  SideTree() {
   const [colors, setColors] = useState(initialColors)
 
   const positions = useRef([]).current
@@ -43,6 +43,9 @@ export function  SideTree(params) {
   }
 
   return (
+    <>
+    <input className={styles.input}/>
+    <button className={styles.search}>Search</button>
     <ul className={styles.ul}>
       {colors?.map((color, i) => (
         <Item
@@ -54,6 +57,7 @@ export function  SideTree(params) {
         />
       ))}
     </ul>
+    </>
   )
 }
 
@@ -78,10 +82,10 @@ const Item = ({ color, setPosition, moveItem, i }) => {
       // If we're dragging, we want to set the zIndex of that item to be on top of the other items.
       animate={isDragging ? onTop : flat}
       className={styles.li}
-      style={{ background: color, height: 40 }}
+      style={{ background: color, height: 20 }}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 1.12 }}
-      drag="y"
+      // drag="y"
       dragOriginY={dragOriginY}
       dragConstraints={{ top: 0, bottom: 0 }}
       dragElastic={1}
@@ -94,6 +98,8 @@ const Item = ({ color, setPosition, moveItem, i }) => {
         }
         return !isDragging;
       }}
-    />
+    >
+      Note {i}  
+    </motion.li>
   );
 };
