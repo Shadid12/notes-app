@@ -56,6 +56,11 @@ export const MenuToggle = ({ toggle }) => {
         contentLabel="Example Modal"
       >
         <button className={styles.closeCrossBtn} onClick={() => setIsOpen(false)}>X</button>
+        <div className={styles.loginContainer}>
+          <input className={styles.inputLogin} placeholder="Username"/>
+          <input className={`${styles.inputLogin} ${styles.loginPassword}`} placeholder="Pasword"/>
+          <button className={styles.loginActionBtn}>Login</button>
+        </div>
       </Modal>
 
     </div>
