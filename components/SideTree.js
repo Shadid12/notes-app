@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, useMotionValue } from "framer-motion"
-import { findIndex } from "./find-index"
 import styles from '../styles/SideTree.module.css'
 
 

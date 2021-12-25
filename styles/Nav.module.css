@@ -19,6 +19,29 @@
   z-index: 1;
 }
 
+.buttonLogin {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  left: 70px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 1;
+  background: #ffe066;
+  margin-left: 5px;
+  font-weight: 600;
+  height: 40px;
+  border-radius: 0.6818181818182em;
+  border: 1px solid #161a2b;
+  box-shadow: 0.3181818181818em 0.3181818181818em 0 #fae1dd;
+  cursor: pointer;
+  color: #161a2b;
+}
+
 .nav ul {
   margin: 0;
   padding: 25px;
@@ -62,4 +85,20 @@
 
   ;
   z-index: 1;
+}
+
+.Modal {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  margin: 15% 35%;
+  background-color: papayawhip;
+}
+
+.closeCrossBtn {
+  border: none;
+  background: transparent;
+  font-size: 25px;
+  font-weight: 600;
+  padding: 10px;
 }
