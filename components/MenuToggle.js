@@ -18,12 +18,14 @@ export const MenuToggle = ({ toggle }) => {
 
   return (
     <div>
-      <button 
+      <motion.button 
         className={styles.buttonLogin}
         onClick={() => setIsOpen(!isOpen)}
+        whileTap={{ scale: 0.9 }}
+        transition={{ ease: "easeOut", duration: 0.2 }}
       >
         Login
-      </button>
+      </motion.button>
       <button onClick={toggle} className={styles.button}>
         <svg width="23" height="23" viewBox="0 0 23 23">
           <Path
@@ -59,7 +61,12 @@ export const MenuToggle = ({ toggle }) => {
         <div className={styles.loginContainer}>
           <input className={styles.inputLogin} placeholder="Username"/>
           <input className={`${styles.inputLogin} ${styles.loginPassword}`} placeholder="Pasword"/>
-          <button className={styles.loginActionBtn}>Login</button>
+          <motion.button 
+            className={styles.loginActionBtn}
+            whileTap={{ scale: 0.9 }}
+          >
+            Login
+          </motion.button>
         </div>
       </Modal>
 
