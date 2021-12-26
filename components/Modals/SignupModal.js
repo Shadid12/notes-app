@@ -10,6 +10,7 @@ export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
       className={`${styles.Modal}`}
       style={{ height: '800px' }}
       contentLabel="Example Modal"
+      overlayClassName={styles.Overlay}
     >
       <button className={styles.closeCrossBtn} onClick={() => setIsOpen(false)}>X</button>
       <div className={styles.loginContainer}>

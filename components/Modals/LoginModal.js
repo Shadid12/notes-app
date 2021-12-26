@@ -9,6 +9,7 @@ export default function LoginModal({isOpen, setIsOpen, setIsSignupOpen}) {
       onRequestClose={() => setIsOpen(false)}
       className={styles.Modal}
       contentLabel="Example Modal"
+      overlayClassName={styles.Overlay}
     >
       <button className={styles.closeCrossBtn} onClick={() => setIsOpen(false)}>X</button>
       <div className={styles.loginContainer}>

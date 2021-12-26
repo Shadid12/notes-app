@@ -94,6 +94,13 @@
   background-color: papayawhip;
 }
 
+.Overlay {
+  z-index: 9;
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
 .closeCrossBtn {
   border: none;
   background: transparent;
