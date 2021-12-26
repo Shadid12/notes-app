@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import Modal from 'react-modal'
 import styles from '../styles/Nav.module.css'
+import LoginModal from "./Modals/LoginModal";
 
 const Path = props => (
   <motion.path
@@ -14,13 +14,13 @@ const Path = props => (
 );
 
 export const MenuToggle = ({ toggle }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
 
   return (
     <div>
       <motion.button 
         className={styles.buttonLogin}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsLoginOpen(!isLoginOpen)}
         whileTap={{ scale: 0.9 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
       >
@@ -51,24 +51,7 @@ export const MenuToggle = ({ toggle }) => {
         </svg>
       </button>
 
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-        className={styles.Modal}
-        contentLabel="Example Modal"
-      >
-        <button className={styles.closeCrossBtn} onClick={() => setIsOpen(false)}>X</button>
-        <div className={styles.loginContainer}>
-          <input className={styles.inputLogin} placeholder="Username"/>
-          <input className={`${styles.inputLogin} ${styles.loginPassword}`} placeholder="Pasword"/>
-          <motion.button 
-            className={styles.loginActionBtn}
-            whileTap={{ scale: 0.9 }}
-          >
-            Login
-          </motion.button>
-        </div>
-      </Modal>
+      <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
 
     </div>
   )
