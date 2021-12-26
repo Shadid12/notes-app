@@ -2,35 +2,37 @@ import Modal from 'react-modal'
 import { motion } from "framer-motion"
 import styles from '../../styles/Nav.module.css'
 
-export default function LoginModal({isOpen, setIsOpen, setIsSignupOpen}) {
+export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={() => setIsOpen(false)}
-      className={styles.Modal}
+      className={`${styles.Modal}`}
+      style={{ height: '800px' }}
       contentLabel="Example Modal"
     >
       <button className={styles.closeCrossBtn} onClick={() => setIsOpen(false)}>X</button>
       <div className={styles.loginContainer}>
-        <input className={styles.inputLogin} placeholder="Username"/>
+      <input className={styles.inputLogin} placeholder="Username"/>
+        <input className={`${styles.inputLogin} ${styles.loginPassword}`} placeholder="Email"/>
         <input className={`${styles.inputLogin} ${styles.loginPassword}`} placeholder="Pasword"/>
         <motion.button 
           className={styles.loginActionBtn}
           whileTap={{ scale: 0.9 }}
         >
-          Login
+          Signup
         </motion.button>
         <div className={styles.signupWrap}>
-          <p>{`Don't have an account?`}</p>
+          <p>{`Already have an account?`}</p>
           <motion.button 
             className={styles.loginActionBtn}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              setIsSignupOpen(true);
+              setIsLoginOpen(true);
               setIsOpen(false);
             }}
           >
-            Signup
+            Login
           </motion.button>
         </div>
       </div>

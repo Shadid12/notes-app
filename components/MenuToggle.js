@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import styles from '../styles/Nav.module.css'
-import LoginModal from "./Modals/LoginModal";
+import LoginModal from "./Modals/LoginModal"
+import SignupModal from "./Modals/SignupModal"
+import styles from "../styles/Nav.module.css"
 
 const Path = props => (
   <motion.path
@@ -15,6 +16,7 @@ const Path = props => (
 
 export const MenuToggle = ({ toggle }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [isSignupOpen, setIsSignupOpen] = useState(false)
 
   return (
     <div>
@@ -51,7 +53,17 @@ export const MenuToggle = ({ toggle }) => {
         </svg>
       </button>
 
-      <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        setIsOpen={setIsLoginOpen} 
+        setIsSignupOpen={setIsSignupOpen}
+      />
+
+      <SignupModal 
+        isOpen={isSignupOpen}
+        setIsOpen={setIsSignupOpen}
+        setIsLoginOpen={setIsLoginOpen}
+      />
 
     </div>
   )
