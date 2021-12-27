@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 import styles from '../../styles/Nav.module.css'
 import { useState } from 'react'
 import { UserRegistration } from '../../fql/User'
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCount, increment, decrement } from './userSlice'
 
 export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
   const [state, setState] = useState({
@@ -18,10 +20,26 @@ export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
     })
   }
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault()
-    UserRegistration(state.username, state.email, state.password)
+    try {
+      const registered = 
+      await UserRegistration(state.username, state.email, state.password)
+      console.log('registered', registered)
+      alert('Registered new user')
+      setState({
+        username: '',
+        password: '',
+        email: '',
+      })
+      setIsOpen(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  const count = useSelector(selectCount);
+  const dispatch = useDispatch();
 
   return (
     <Modal
@@ -76,6 +94,23 @@ export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
           </motion.button>
         </div>
       </div>
+
+
+      <div className={styles.row}>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(increment())}
+          >
+            +
+          </button>
+          <span className={styles.value}>{count}</span>
+          <button
+            aria-label="Decrement value"
+            onClick={() => dispatch(decrement())}
+          >
+            -
+          </button>
+        </div>
     </Modal>
   )
 }

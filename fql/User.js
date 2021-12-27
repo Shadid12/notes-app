@@ -5,13 +5,13 @@ import {
 } from "faunadb"
 
 
-export function UserRegistration(username, email, password) {
-  console.log('UserRegistration', process.env.NEXT_PUBLIC_FAUNA_SECRET_KEY)
-  const client = new Client({ 
-    secret: process.env.NEXT_PUBLIC_FAUNA_SECRET_KEY,
-    domain: 'db.us.fauna.com'
-  })
-  client.query(
+const client = new Client({ 
+  secret: process.env.NEXT_PUBLIC_FAUNA_SECRET_KEY,
+  domain: 'db.us.fauna.com'
+})
+
+export async function UserRegistration(username, email, password) {
+  return await client.query(
     Create(
       Collection("User"),
       {
@@ -22,9 +22,5 @@ export function UserRegistration(username, email, password) {
         },
       }
     )
-  ).then(response => {
-    console.log("success", response)
-  }).catch(error => {
-    console.log("error", error)
-  })
+  )
 }
