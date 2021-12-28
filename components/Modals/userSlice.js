@@ -7,7 +7,11 @@ export const userSlice = createSlice({
   },
   reducers: {
     setUser: (state, action) => {
-      Cookies.set('notes-user', action.payload)
+      Cookies.set(
+        'notes-user', 
+        action.payload,
+        { expires: 1/24 }
+      )
       state.secrect = action.payload
     }
   }
