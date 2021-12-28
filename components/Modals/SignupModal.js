@@ -3,8 +3,8 @@ import { motion } from "framer-motion"
 import styles from '../../styles/Nav.module.css'
 import { useState } from 'react'
 import { UserRegistration } from '../../fql/User'
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCount, increment, decrement } from './userSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectCount } from './userSlice'
 
 export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
   const [state, setState] = useState({
@@ -94,23 +94,6 @@ export default function SignupModal({isOpen, setIsOpen, setIsLoginOpen}) {
           </motion.button>
         </div>
       </div>
-
-
-      <div className={styles.row}>
-          <button
-            aria-label="Increment value"
-            onClick={() => dispatch(increment())}
-          >
-            +
-          </button>
-          <span className={styles.value}>{count}</span>
-          <button
-            aria-label="Decrement value"
-            onClick={() => dispatch(decrement())}
-          >
-            -
-          </button>
-        </div>
     </Modal>
   )
 }

@@ -3,20 +3,18 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    value: 0
+    secrect: '',
   },
   reducers: {
-    increment: state => {
-      state.value += 1
-    },
-    decrement: state => {
-      state.value -= 1
-    },
+    setUser: (state, action) => { 
+      console.log('action.payload', action.payload)
+      state.secrect = action.payload
+    }
   }
 })
 
 export const selectCount = state => state.user.value;
 
-export const { increment, decrement } = userSlice.actions
+export const { setUser } = userSlice.actions
 
 export default userSlice.reducer

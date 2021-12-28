@@ -1,7 +1,14 @@
 import { 
   Client,
   Create,
-  Collection
+  Collection,
+  Login,
+  Match,
+  Index,
+  Let,
+  Select,
+  Paginate,
+  Var
 } from "faunadb"
 
 
@@ -20,6 +27,26 @@ export async function UserRegistration(username, email, password) {
           username: username,
           email: email,
         },
+      }
+    )
+  )
+}
+
+export async function UserLogin(email, password) {
+  return await client.query(
+    Let(
+      {
+        credentials: Login(
+          Match(Index("user_by_email"), email),
+          { password: password },
+        )
+      },
+      {
+        secret: Select("secret", Var("credentials")),
+        user: Select(
+          0,
+          Paginate(Match(Index("user_by_email"), email))
+        ),
       }
     )
   )
