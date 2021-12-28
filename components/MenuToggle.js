@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 import LoginModal from "./Modals/LoginModal"
 import SignupModal from "./Modals/SignupModal"
 import styles from "../styles/Nav.module.css"
+import { useSelector } from "react-redux"
+import { selectUser } from "./Modals/userSlice"
 
 const Path = props => (
   <motion.path
@@ -18,16 +20,28 @@ export const MenuToggle = ({ toggle }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
 
+  const userState = useSelector(selectUser);
+
   return (
     <div>
-      <motion.button 
-        className={styles.buttonLogin}
-        onClick={() => setIsLoginOpen(!isLoginOpen)}
-        whileTap={{ scale: 0.9 }}
-        transition={{ ease: "easeOut", duration: 0.2 }}
-      >
-        Login
-      </motion.button>
+      {userState ? ( 
+        <motion.button 
+          className={styles.buttonLogin}
+          whileTap={{ scale: 0.9 }}
+          transition={{ ease: "easeOut", duration: 0.2 }}
+        >
+          Save
+        </motion.button>
+      ) : (
+        <motion.button 
+          className={styles.buttonLogin}
+          onClick={() => setIsLoginOpen(!isLoginOpen)}
+          whileTap={{ scale: 0.9 }}
+          transition={{ ease: "easeOut", duration: 0.2 }}
+        >
+          Login
+        </motion.button>
+      )}
       <button onClick={toggle} className={styles.button}>
         <svg width="23" height="23" viewBox="0 0 23 23">
           <Path
