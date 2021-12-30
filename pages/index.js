@@ -1,33 +1,9 @@
-import { useState } from 'react'
-import { Editor, Viewer } from '@bytemd/react'
-import breaks from '@bytemd/plugin-breaks'
-import footnotes from '@bytemd/plugin-footnotes'
-import frontmatter from '@bytemd/plugin-frontmatter'
-import gfm from '@bytemd/plugin-gfm'
-import highlight from '@bytemd/plugin-highlight'
-import math from '@bytemd/plugin-math'
-import mediumZoom from '@bytemd/plugin-medium-zoom'
-import mermaid from '@bytemd/plugin-mermaid'
-import gemoji from '@bytemd/plugin-gemoji'
 import styles from '../styles/Home.module.css'
 import SideMenu from '../components/SideMenu'
 import { SideTree } from '../components/SideTree'
-
-const plugins = [
-  gfm(),
-  gemoji(),
-  mermaid(),
-  mediumZoom(),
-  math(),
-  highlight(),
-  frontmatter(),
-  footnotes(),
-  breaks(),
-]
+import MainEditor from '../components/MainEditor/MainEditor'
 
 export default function Home() {
-  const [value, setValue] = useState('')
-
   return (
     <>
     <SideMenu />
@@ -36,13 +12,7 @@ export default function Home() {
         <SideTree />
       </div>
       <div className={styles.container}>
-        <Editor
-          value={value}
-          plugins={plugins}
-          onChange={(v) => {
-            setValue(v)
-          }}
-        />
+        <MainEditor />
       </div>
     </div>
     </>

@@ -18,15 +18,7 @@ export const userSlice = createSlice({
 })
 
 export const selectCount = state => state.user.value;
-export const selectUser = state => {
-  if (state.secrect) { 
-    return state.secrect
-  } else { 
-    const secrect = Cookies.get('notes-user')
-    state.secrect = secrect
-    return state.secrect;
-  }
-}
+export const selectUser = state => state.secrect
 
 export const { setUser } = userSlice.actions
 

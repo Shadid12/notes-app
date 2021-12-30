@@ -3,8 +3,9 @@ import { motion } from "framer-motion"
 import LoginModal from "./Modals/LoginModal"
 import SignupModal from "./Modals/SignupModal"
 import styles from "../styles/Nav.module.css"
-import { useSelector } from "react-redux"
-import { selectUser } from "./Modals/userSlice"
+import Cookies from "js-cookie"
+import { useDispatch } from 'react-redux'
+import { saveDocument } from "./MainEditor/editorSlice"
 
 const Path = props => (
   <motion.path
@@ -20,7 +21,8 @@ export const MenuToggle = ({ toggle }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
 
-  const userState = useSelector(selectUser);
+  const userState = Cookies.get('notes-user')
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -29,6 +31,9 @@ export const MenuToggle = ({ toggle }) => {
           className={styles.buttonLogin}
           whileTap={{ scale: 0.9 }}
           transition={{ ease: "easeOut", duration: 0.2 }}
+          onClick={() => {
+            dispatch(saveDocument())
+          } }
         >
           Save
         </motion.button>
