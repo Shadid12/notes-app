@@ -4,7 +4,7 @@ import {
   Collection,
   Get,
   Ref,
-  Paginate,
+  Update,
   Var
 } from "faunadb"
 
@@ -29,7 +29,7 @@ export async function UpsertDocument(id, value) {
   } else {
     return await client.query(
       Update(
-        Ref(Collection('Document'), '181388642581742080'),
+        Ref(Collection('Document'), id),
         {
           data: {
             value

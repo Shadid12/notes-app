@@ -3,11 +3,13 @@ import { UpsertDocument, GetDocument } from '../../fql/Document'
 
 export const saveDocument = createAsyncThunk(
   'document/saveDocument',
-  async (args, { getState }) => {
+  async (_, { getState }) => {
     const state = getState();
-    let id = args === 'NEW_DOCUMENT' ? null : args
-    const value = state.document[args]
+    let id = state.document.currentDocument ? 
+      state.document.currentDocument : 'NEW_DOCUMENT'
+    const value = state.document[id]
     const res = await UpsertDocument(id, value)
+    console.log('res ==>', res)
     return res.ref.id
   }
 )
@@ -45,9 +47,9 @@ export const editorSlice = createSlice({
       state.loading = false
       state.currentDocument = payload
     },
-    [saveDocument.rejected]: (state, {payload}) => {
+    [saveDocument.rejected]: (state, err) => {
       state.loading = false
-      state.error = payload
+      state.error = err
     },
     [getDocument.pending]: (state, action) => {
       state.loading = true

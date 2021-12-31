@@ -37,7 +37,7 @@ export const MenuToggle = ({ toggle }) => {
           whileTap={{ scale: 0.9 }}
           transition={{ ease: "easeOut", duration: 0.2 }}
           onClick={() => {
-            dispatch(saveDocument('NEW_DOCUMENT'))
+            dispatch(saveDocument())
           } }
         >
           Save
