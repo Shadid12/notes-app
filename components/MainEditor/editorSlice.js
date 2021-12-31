@@ -8,7 +8,7 @@ export const saveDocument = createAsyncThunk(
     let id = args === 'NEW_DOCUMENT' ? null : args
     const value = state.document[args]
     const res = await UpsertDocument(id, value)
-    return res.data
+    return res.ref.id
   }
 )
 
@@ -31,7 +31,7 @@ export const editorSlice = createSlice({
     },
     [saveDocument.fulfilled]: (state, {payload}) => {
       state.loading = false
-      console.log('payload', payload)
+      state.currentDocument = payload
     },
     [saveDocument.rejected]: (state, {payload}) => {
       state.loading = false
@@ -40,7 +40,7 @@ export const editorSlice = createSlice({
   }
 })
 
-export const selectDocument = id => state => state?.document?.[id];
+export const selectCurrentDocument = state => state.document.currentDocument
 
 export const { setDocument } = editorSlice.actions
 

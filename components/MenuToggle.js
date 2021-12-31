@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import LoginModal from "./Modals/LoginModal"
 import SignupModal from "./Modals/SignupModal"
 import styles from "../styles/Nav.module.css"
 import Cookies from "js-cookie"
 import { useDispatch, useSelector } from 'react-redux'
-import { saveDocument, selectDocument } from "./MainEditor/editorSlice"
+import { saveDocument, selectCurrentDocument } from "./MainEditor/editorSlice"
 
 const Path = props => (
   <motion.path
@@ -20,7 +20,11 @@ const Path = props => (
 export const MenuToggle = ({ toggle }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
-  const docVal = useSelector(selectDocument('NEW_DOCUMENT'))
+  const currentDoc = useSelector(selectCurrentDocument)
+
+  useEffect(() => {
+    console.log('currentDoc', currentDoc)
+  },[currentDoc])
 
   const userState = Cookies.get('notes-user')
   const dispatch = useDispatch()
