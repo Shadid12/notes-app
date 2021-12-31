@@ -4,8 +4,8 @@ import LoginModal from "./Modals/LoginModal"
 import SignupModal from "./Modals/SignupModal"
 import styles from "../styles/Nav.module.css"
 import Cookies from "js-cookie"
-import { useDispatch } from 'react-redux'
-import { saveDocument } from "./MainEditor/editorSlice"
+import { useDispatch, useSelector } from 'react-redux'
+import { saveDocument, selectDocument } from "./MainEditor/editorSlice"
 
 const Path = props => (
   <motion.path
@@ -20,6 +20,7 @@ const Path = props => (
 export const MenuToggle = ({ toggle }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
+  const docVal = useSelector(selectDocument('NEW_DOCUMENT'))
 
   const userState = Cookies.get('notes-user')
   const dispatch = useDispatch()
@@ -32,8 +33,7 @@ export const MenuToggle = ({ toggle }) => {
           whileTap={{ scale: 0.9 }}
           transition={{ ease: "easeOut", duration: 0.2 }}
           onClick={() => {
-            console.log('Save')
-            dispatch(saveDocument({id: 'NEW_DOCUMENT', value: 'Hello World'}))
+            dispatch(saveDocument('NEW_DOCUMENT'))
           } }
         >
           Save

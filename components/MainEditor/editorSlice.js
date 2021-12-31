@@ -3,12 +3,14 @@ import { UpsertDocument } from '../../fql/Document'
 
 export const saveDocument = createAsyncThunk(
   'document/saveDocument',
-  async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const result = res.json()
-    return result
+  async (args, { getState }) => {
+    const state = getState();
+    let id = args === 'NEW_DOCUMENT' ? null : args
+    const value = state.document[args]
+    const res = await UpsertDocument(id, value)
+    return res.data
   }
-) 
+)
 
 
 export const editorSlice = createSlice({
@@ -37,6 +39,8 @@ export const editorSlice = createSlice({
     }
   }
 })
+
+export const selectDocument = id => state => state?.document?.[id];
 
 export const { setDocument } = editorSlice.actions
 
