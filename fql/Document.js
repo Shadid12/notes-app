@@ -2,11 +2,8 @@ import {
   Client,
   Create,
   Collection,
-  Login,
-  Match,
-  Index,
-  Let,
-  Select,
+  Get,
+  Ref,
   Paginate,
   Var
 } from "faunadb"
@@ -32,14 +29,21 @@ export async function UpsertDocument(id, value) {
   } else {
     return await client.query(
       Update(
-        Ref(Collection('spells'), '181388642581742080'),
+        Ref(Collection('Document'), '181388642581742080'),
         {
           data: {
-            name: 'Mountain\'s Thunder',
-            cost: null,
+            value
           },
         },
       )
+    )
+  }
+}
+
+export async function GetDocument(id) { 
+  if(id) { 
+    return await client.query(
+      Get(Ref(Collection('Document'), id))
     )
   }
 }
