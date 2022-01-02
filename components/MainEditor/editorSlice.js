@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { UpsertDocument, GetDocument } from '../../fql/Document'
+import Cookies from 'js-cookie'
 
 export const saveDocument = createAsyncThunk(
   'document/saveDocument',
@@ -8,8 +9,9 @@ export const saveDocument = createAsyncThunk(
     let id = state.document.currentDocument ? 
       state.document.currentDocument : 'NEW_DOCUMENT'
     const value = state.document[id]
-    const res = await UpsertDocument(id, value)
-    console.log('res ==>', res)
+    const userState = Cookies.get('notes-user')
+    const userId = JSON.parse(userState).id
+    const res = await UpsertDocument(id, value, userId)
     return res.ref.id
   }
 )
@@ -32,9 +34,6 @@ export const editorSlice = createSlice({
   },
   reducers: {
     setDocument: (state, action) => { 
-      if(!state.currentDocument) { 
-
-      }
       state[state.currentDocument ? state.currentDocument : 'NEW_DOCUMENT'] 
         = action.payload.value
     },
@@ -49,6 +48,7 @@ export const editorSlice = createSlice({
     },
     [saveDocument.rejected]: (state, err) => {
       state.loading = false
+      console.error(err)
       state.error = err
     },
     [getDocument.pending]: (state, action) => {

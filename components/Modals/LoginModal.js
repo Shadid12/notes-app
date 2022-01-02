@@ -28,7 +28,7 @@ export default function LoginModal({isOpen, setIsOpen, setIsSignupOpen}) {
     try {
       const user = await UserLogin(state.email, state.password)
       console.log('user', user)
-      dispatch(setUser(user.secret))
+      dispatch(setUser({ secrect: user.secret, email: state.email, id: user.user.id }))
       alert('Logged in')
       setState({
         email: '',

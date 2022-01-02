@@ -14,14 +14,16 @@ const client = new Client({
   domain: 'db.us.fauna.com'
 })
 
-export async function UpsertDocument(id, value) {
-  if(!id) {
+export async function UpsertDocument(id, value, userId) {
+  if(id === 'NEW_DOCUMENT' || id === null) {
+    console.log(`Creating new document with value: ${value} and userId: ${userId}`)
     return await client.query(
       Create(
         Collection('Document'),
         {
           data: {
-            value
+            value,
+            userId,
           },
         },
       )
@@ -32,7 +34,8 @@ export async function UpsertDocument(id, value) {
         Ref(Collection('Document'), id),
         {
           data: {
-            value
+            value,
+            userId
           },
         },
       )

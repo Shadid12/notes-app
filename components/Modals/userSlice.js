@@ -9,7 +9,7 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       Cookies.set(
         'notes-user', 
-        action.payload,
+        JSON.stringify(action.payload),
         { expires: 1/24 }
       )
       state.secrect = action.payload
