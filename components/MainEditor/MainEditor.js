@@ -10,7 +10,13 @@ import mediumZoom from '@bytemd/plugin-medium-zoom'
 import mermaid from '@bytemd/plugin-mermaid'
 import gemoji from '@bytemd/plugin-gemoji'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDocument, setDocument, selectDocumentVal } from './editorSlice'
+import { 
+  getDocument, 
+  setDocument, 
+  selectDocumentVal, 
+  setDocumentTitle, 
+  selectCurrentDocumentTitle
+} from './editorSlice'
 import { useRouter } from 'next/router'
 
 
@@ -28,9 +34,11 @@ const plugins = [
 
 export default function  MainEditor() {
   const [value, setValue] = useState('')
+  const [title, setTitle] = useState('')
   const router = useRouter()
   const dispatch = useDispatch()
   const currentDoc = useSelector(selectDocumentVal)
+  const currentDocTitle = useSelector(selectCurrentDocumentTitle)
 
   useEffect(() => {
     if(router.query.id) {
@@ -42,17 +50,33 @@ export default function  MainEditor() {
     if(currentDoc) {
       setValue(currentDoc)
     }
-  }, [currentDoc])
+    if(currentDocTitle) {
+      setTitle(currentDocTitle)
+    } else {
+      setTitle('Untitled')
+    }
+  }, [currentDoc, currentDocTitle])
 
 
   return (
     <>
+      <input 
+        value={title} 
+        onChange={
+          (e) => {
+            setTitle(e.target.value)
+            dispatch(setDocumentTitle({title: e.target.value}))
+          }
+        } 
+        placeholder='Filename'
+      />
       <Editor
         value={value}
         plugins={plugins}
         onChange={(v) => {
           setValue(v)
           dispatch(setDocument({
+            title,
             value: v
           }))
         }}

@@ -9,10 +9,11 @@ export const saveDocument = createAsyncThunk(
     let id = state.document.currentDocument ? 
       state.document.currentDocument : 'NEW_DOCUMENT'
     const value = state.document[id]
+    const title = state.document.titles[id]
     const userState = Cookies.get('notes-user')
     const userId = JSON.parse(userState).id
-    const res = await UpsertDocument(id, value, userId)
-    return res.ref.id
+    const res = await UpsertDocument(id, value, userId, title)
+    return { id: res.ref.id, value, userId, title }
   }
 )
 
@@ -20,7 +21,7 @@ export const getDocument = createAsyncThunk(
   'document/getDocument',
   async (id, _) => {
     const res = await GetDocument(id)
-    return { id: res.ref.id, value: res.data.value }
+    return { id: res.ref.id, value: res.data.value, title: res.data.title }
   }
 )
 
@@ -54,12 +55,17 @@ export const editorSlice = createSlice({
     loading: false,
     currentDocument: null,
     error: null,
-    mydocs: []
+    mydocs: [],
+    titles: {}
   },
   reducers: {
     setDocument: (state, action) => { 
-      state[state.currentDocument ? state.currentDocument : 'NEW_DOCUMENT'] 
+      state[state.currentDocument ? state.currentDocument : 'NEW_DOCUMENT']
         = action.payload.value
+    },
+    setDocumentTitle: (state, action) => { 
+      state.titles[state.currentDocument ? state.currentDocument : 'NEW_DOCUMENT']
+        = action.payload.title
     },
     resetDocument: (state, action) => { 
       state.currentDocument = 'NEW_DOCUMENT'
@@ -73,6 +79,9 @@ export const editorSlice = createSlice({
     [saveDocument.fulfilled]: (state, {payload}) => {
       state.loading = false
       state.currentDocument = payload
+      // Update the list of documents
+      console.log(`Document saved with id: ${payload}`)
+      state.mydocs.push(payload)
     },
     [saveDocument.rejected]: (state, err) => {
       state.loading = false
@@ -86,6 +95,7 @@ export const editorSlice = createSlice({
       state.loading = false
       state.currentDocument = payload.id
       state[payload.id] = payload.value
+      state.titles[payload.id] = payload.title
     },
     [getDocument.rejected]: (state, error) => { 
       state.loading = false
@@ -110,7 +120,8 @@ export const editorSlice = createSlice({
 export const selectCurrentDocument = state => state.document.currentDocument
 export const selectDocumentVal = state => state.document[state.document.currentDocument]
 export const selectMyDocuments = state => state.document.mydocs
+export const selectCurrentDocumentTitle = state => state.document.titles[state.document.currentDocument]
 
-export const { setDocument, resetDocument } = editorSlice.actions
+export const { setDocument, resetDocument, setDocumentTitle } = editorSlice.actions
 
 export default editorSlice.reducer

@@ -15,7 +15,7 @@ export const Item = ({ color, setPosition, moveItem, i, item }) => {
   const [isDragging, setDragging] = useState(false)
   const ref = useRef(null)
   const router = useRouter()
-  
+
   const dragOriginY = useMotionValue(0)
 
   // Update the measured position of the item so we can calculate when we should rearrange.
@@ -53,7 +53,7 @@ export const Item = ({ color, setPosition, moveItem, i, item }) => {
         router.push(`/?id=${item.id}`)
       }}
     >
-      {item.id}
+      {item.title ? item.title : item.id}
     </motion.li>
   );
 };

@@ -6,7 +6,7 @@
   display: block;
   position: absolute;
   margin-top: 100px;
-  overflow: hidden;
+  overflow: auto;
   width: 300px;
   padding: 5px;
   height: 50vh;
