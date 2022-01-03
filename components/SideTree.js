@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react"
-import { motion, useMotionValue } from "framer-motion"
+import { getDocumentsByUser } from "./MainEditor/editorSlice"
 import styles from '../styles/SideTree.module.css'
+import { Item } from "./SideTreeItem";
+import { useDispatch } from "react-redux";
 
 
 export function arrayMoveMutable(array, fromIndex, toIndex) {
@@ -23,15 +25,14 @@ export function arrayMoveImmutable(array, fromIndex, toIndex) {
 
 
 const initialColors = ["#fbf8cc", "#ffcfd2", "#cfbaf0", "#bbdefb", "#a3c4f3", "#98f5e1"]
-// Spring configs
-const onTop = { zIndex: 1 };
-const flat = {
-  zIndex: 0,
-  transition: { delay: 0.3 }
-};
 
 export function  SideTree() {
   const [colors, setColors] = useState(initialColors)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getDocumentsByUser())
+  }, [])
 
   const positions = useRef([]).current
   const setPosition = (i, offset) => (positions[i] = offset)
@@ -59,46 +60,3 @@ export function  SideTree() {
     </>
   )
 }
-
-const Item = ({ color, setPosition, moveItem, i }) => {
-  const [isDragging, setDragging] = useState(false)
-  const ref = useRef(null)
-
-  const dragOriginY = useMotionValue(0)
-
-  // Update the measured position of the item so we can calculate when we should rearrange.
-  useEffect(() => {
-    setPosition(i, {
-      height: ref.current.offsetHeight,
-      top: ref.current.offsetTop
-    })
-  })
-
-  return (
-    <motion.li
-      ref={ref}
-      initial={false}
-      // If we're dragging, we want to set the zIndex of that item to be on top of the other items.
-      animate={isDragging ? onTop : flat}
-      className={styles.li}
-      style={{ background: color, height: 20 }}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 1.12 }}
-      // drag="y"
-      dragOriginY={dragOriginY}
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={1}
-      onDragStart={() => setDragging(true)}
-      onDragEnd={() => setDragging(false)}
-      onDrag={(e, { point }) => moveItem(i, point.y)}
-      positionTransition={({ delta }) => {
-        if (isDragging) {
-          dragOriginY.set(dragOriginY.get() + delta.y);
-        }
-        return !isDragging;
-      }}
-    >
-      Note {i}  
-    </motion.li>
-  );
-};

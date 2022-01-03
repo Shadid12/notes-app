@@ -5,7 +5,11 @@ import {
   Get,
   Ref,
   Update,
-  Var
+  Match,
+  Index,
+  Map, 
+  Paginate,
+  Lambda
 } from "faunadb"
 
 
@@ -49,4 +53,13 @@ export async function GetDocument(id) {
       Get(Ref(Collection('Document'), id))
     )
   }
+}
+
+export async function GetDocumentsByUser(userId) { 
+  return await client.query(
+    Map(
+      Paginate(Match(Index('document_by_userId'), userId)),
+      Lambda(x => Get(x))
+    )
+  )
 }

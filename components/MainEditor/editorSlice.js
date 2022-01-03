@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { UpsertDocument, GetDocument } from '../../fql/Document'
+import { UpsertDocument, GetDocument, GetDocumentsByUser } from '../../fql/Document'
 import Cookies from 'js-cookie'
 
 export const saveDocument = createAsyncThunk(
@@ -24,6 +24,29 @@ export const getDocument = createAsyncThunk(
   }
 )
 
+export const getDocumentsByUser = createAsyncThunk(
+  'document/getDocumentsByUser',
+  async (_, { getState }) => { 
+    const userState = Cookies.get('notes-user')
+    if(!userState) { 
+      return []
+    }
+    const userId = JSON.parse(userState).id
+    const res = await GetDocumentsByUser(userId)
+    if(!res.data) { 
+      return null;
+    }
+    const notes = []
+    for (const item of res.data) {
+      notes.push({
+        id: item.ref.id,
+        ...item.data
+    })
+    }
+    return notes
+  }
+)
+
 
 export const editorSlice = createSlice({
   name: 'document',
@@ -31,6 +54,7 @@ export const editorSlice = createSlice({
     loading: false,
     currentDocument: null,
     error: null,
+    mydocs: []
   },
   reducers: {
     setDocument: (state, action) => { 
@@ -60,6 +84,18 @@ export const editorSlice = createSlice({
       state[payload.id] = payload.value
     },
     [getDocument.rejected]: (state, error) => { 
+      state.loading = false
+      state.error = error
+      console.log('Error', error)
+    },
+    [getDocumentsByUser.pending]: (state) => {
+      state.loading = true
+    },
+    [getDocumentsByUser.fulfilled]: (state, {payload}) => {
+      state.loading = false
+      state.mydocs = payload
+    },
+    [getDocumentsByUser.rejected]: (state, error) => { 
       state.loading = false
       state.error = error
       console.log('Error', error)
