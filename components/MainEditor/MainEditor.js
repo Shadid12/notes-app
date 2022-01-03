@@ -18,6 +18,7 @@ import {
   selectCurrentDocumentTitle
 } from './editorSlice'
 import { useRouter } from 'next/router'
+import styles from '../../styles/Editor.module.css'
 
 
 const plugins = [
@@ -68,6 +69,7 @@ export default function  MainEditor() {
           }
         } 
         placeholder='Filename'
+        className={styles.titleInput}
       />
       <Editor
         value={value}
