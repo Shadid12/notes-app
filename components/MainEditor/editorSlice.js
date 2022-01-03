@@ -105,6 +105,7 @@ export const editorSlice = createSlice({
 
 export const selectCurrentDocument = state => state.document.currentDocument
 export const selectDocumentVal = state => state.document[state.document.currentDocument]
+export const selectMyDocuments = state => state.document.mydocs
 
 export const { setDocument } = editorSlice.actions
 

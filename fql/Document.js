@@ -58,7 +58,10 @@ export async function GetDocument(id) {
 export async function GetDocumentsByUser(userId) { 
   return await client.query(
     Map(
-      Paginate(Match(Index('document_by_userId'), userId)),
+      Paginate(
+        Match(Index('document_by_userId'), userId),
+        { size: 10 }
+      ),
       Lambda(x => Get(x))
     )
   )

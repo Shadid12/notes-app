@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react"
-import { getDocumentsByUser } from "./MainEditor/editorSlice"
+import { getDocumentsByUser, selectMyDocuments } from "./MainEditor/editorSlice"
 import styles from '../styles/SideTree.module.css'
 import { Item } from "./SideTreeItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export function arrayMoveMutable(array, fromIndex, toIndex) {
@@ -29,10 +29,13 @@ const initialColors = ["#fbf8cc", "#ffcfd2", "#cfbaf0", "#bbdefb", "#a3c4f3", "#
 export function  SideTree() {
   const [colors, setColors] = useState(initialColors)
   const dispatch = useDispatch()
+  const mydocs = useSelector(selectMyDocuments)
 
   useEffect(() => {
     dispatch(getDocumentsByUser())
   }, [])
+
+  console.log('mydocs', mydocs)
 
   const positions = useRef([]).current
   const setPosition = (i, offset) => (positions[i] = offset)
@@ -47,11 +50,11 @@ export function  SideTree() {
     <input className={styles.input}/>
     <button className={styles.search}>Search</button>
     <ul className={styles.ul}>
-      {colors?.map((color, i) => (
+      {mydocs?.map((item, i) => (
         <Item
-          key={color}
-          i={i}
-          color={color}
+          key={item.id}
+          color={"#48cae4"}
+          item={item}
           setPosition={setPosition}
           moveItem={moveItem}
         />

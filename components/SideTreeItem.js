@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { motion, useMotionValue } from "framer-motion"
 import styles from '../styles/SideTree.module.css'
+import { useRouter } from 'next/router'
 
 
 // Spring configs
@@ -10,10 +11,11 @@ const flat = {
   transition: { delay: 0.3 }
 };
 
-export const Item = ({ color, setPosition, moveItem, i }) => {
+export const Item = ({ color, setPosition, moveItem, i, item }) => {
   const [isDragging, setDragging] = useState(false)
   const ref = useRef(null)
-
+  const router = useRouter()
+  
   const dragOriginY = useMotionValue(0)
 
   // Update the measured position of the item so we can calculate when we should rearrange.
@@ -47,8 +49,11 @@ export const Item = ({ color, setPosition, moveItem, i }) => {
         }
         return !isDragging;
       }}
+      onClick={() => {
+        router.push(`/?id=${item.id}`)
+      }}
     >
-      Note {i}  
+      {item.id}
     </motion.li>
   );
 };
