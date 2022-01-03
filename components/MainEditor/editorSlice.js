@@ -61,6 +61,10 @@ export const editorSlice = createSlice({
       state[state.currentDocument ? state.currentDocument : 'NEW_DOCUMENT'] 
         = action.payload.value
     },
+    resetDocument: (state, action) => { 
+      state.currentDocument = 'NEW_DOCUMENT'
+      state.mydocs = []
+    }
   },
   extraReducers: { 
     [saveDocument.pending]: (state, action) => {
@@ -107,6 +111,6 @@ export const selectCurrentDocument = state => state.document.currentDocument
 export const selectDocumentVal = state => state.document[state.document.currentDocument]
 export const selectMyDocuments = state => state.document.mydocs
 
-export const { setDocument } = editorSlice.actions
+export const { setDocument, resetDocument } = editorSlice.actions
 
 export default editorSlice.reducer

@@ -5,6 +5,7 @@ import { UserLogin } from '../../fql/User'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUser } from './userSlice'
+import { getDocumentsByUser } from '../MainEditor/editorSlice'
 
 
 export default function LoginModal({isOpen, setIsOpen, setIsSignupOpen}) {
@@ -35,6 +36,7 @@ export default function LoginModal({isOpen, setIsOpen, setIsSignupOpen}) {
         password: '',
       })
       setIsOpen(false)
+      dispatch(getDocumentsByUser())
     } catch (error) {
       console.log(error)
     }
