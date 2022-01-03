@@ -50,12 +50,11 @@ export default function  MainEditor() {
     if(currentDoc) {
       setValue(currentDoc)
     }
-    if(currentDocTitle) {
-      setTitle(currentDocTitle)
-    } else {
-      setTitle('Untitled')
-    }
-  }, [currentDoc, currentDocTitle])
+  }, [currentDoc])
+
+  useEffect(() => {
+    setTitle(currentDocTitle)
+   }, [currentDocTitle])
 
 
   return (

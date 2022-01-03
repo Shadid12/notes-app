@@ -80,8 +80,12 @@ export const editorSlice = createSlice({
       state.loading = false
       state.currentDocument = payload
       // Update the list of documents
-      console.log(`Document saved with id: ${payload}`)
-      state.mydocs.push(payload)
+      const index = state.mydocs.findIndex(doc => doc.id === payload.id)
+      if(index === -1) { 
+        state.mydocs.push(payload)
+      } else {
+        state.mydocs[index] = payload
+      }
     },
     [saveDocument.rejected]: (state, err) => {
       state.loading = false
